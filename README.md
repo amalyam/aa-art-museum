@@ -1,76 +1,148 @@
+Long Practice: Art Museum Project
 
-# Create React App Template
+In this project, you will create React components to build a purely frontend application that displays a list of art galleries. Using the React Router library, you will enable a user to navigate through the different art galleries to see images and descriptions of their respective art pieces. The information about the art galleries will be seeded using data extracted from the Harvard Art Museum API.
 
-A no-frills template from which to create React applications with
-[Create React App](https://github.com/facebook/create-react-app).
+By the end of the project, you should understand and be able to use the following React Router components and hook:
 
-```sh
-npx create-react-app my-app --template @appacademy/simple --use-npm
-```
+    BrowserRouter
+    NavLink
+    Link
+    Route
+    Switch
+    useParams
 
-## Available Scripts
+You will also learn how to specify unique keys when creating arrays of JSX elements to render.
+Phase 0: Setup
 
-In the project directory, you can run:
+Here's a breakdown of the steps you'll be taking in this phase (more detailed instruction below):
 
-### `npm start`
+    Create a new React project called art-museum using create-react-app!
+    cd __art-museum__ and then npm install react-router-dom@^5 for project.
+    Start your development server.
+    Create <Root> component.
+    Render <Root> component to DOM.
+    Include <App> in <Root>.
+    Import <BrowserRouter> to wrap around <App>.
+    Create data folder in src folder.
+    Create harvardArt.js file in data folder and copy contents of seed file data.
+    Import harvardArt and console.log it.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+(1) Create a new React project called art-museum using create-react-app with the template @appacademy/react-v17 and using npm.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Create your project:
 
-### `npm test`
+npx create-react-app art-museum --template @appacademy/react-v17 --use-npm
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This command may take a while to run because it should automatically run npm install for you. Take the time to read ahead while this is running.
 
-### `npm run build`
+(2) Once the above command finishes, cd art-museum and then npm install react-router-dom@^5 to install the React Router library.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+(3) Start your development server by running:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+npm start
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+You should see "Hello from App" when you navigate to http://localhost:3000.
+Root component
 
-### `npm run eject`
+Now you'll format the entry file for the React application to render a <Root> component instead of the <App> component.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+(4) In your entry file, src/index.js, create a functional component called Root. Return <h1>Hello from Root</h1> from this component.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+(5) In the ReactDOM.render function, render the <Root> component instead of the <App> component. ReactDOM.render takes in two arguments: The first is a React element, and the second should be an actual HTML DOM element to nest the rendered React elements. Remember, React elements are not real HTML DOM elements. In the background, React takes the rendered React elements and turns them into actual HTML DOM elements.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+If you refresh at http://localhost:3000, you should see the text, "Hello from Root" instead of "Hello from App". Take a look at the HTML elements tree in your browser's development tools (under the "Elements" tab). You should see an h1 tag with the text "Hello from Root" underneath a div with an id of "root". This div is the element selected to render the <Root> component when ReactDOM.render was invoked. The h1 element is the actual element created by React when rendering the <Root> component.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+(6) Instead of rendering the <h1>Hello from Root</h1> inside of the Root component, render the imported App component. Now if you refresh at http://localhost:3000, you should see "Hello from App" again, not "Hello from Root".
 
-## Learn More
+The purpose for the Root component is to wrap the App component with any Providers that can give your React app more functionality. BrowserRouter from the React Router library is a provider you'll be using in all your App Academy React projects to simulate navigation in a single page app.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+(7) In your index.js file, import BrowserRouter from react-router-dom and wrap the App component (found in your <Root> component) with the BrowserRouter component.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Your Root component should now look like this:
 
-### Code Splitting
+function Root() {
+return (
+<BrowserRouter>
+<App />
+</BrowserRouter>
+);
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+If you refresh at http://localhost:3000, you should still see the text, "Hello from App".
+Art Gallery Data
 
-### Analyzing the Bundle Size
+(8) Make a folder in src called data.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+(9) Create a file in src/data/ called hardvardArt.js to contain the art data inside the newly created data folder. Go to this URL and copy the contents into your harvardArt.js file.
 
-### Making a Progressive Web App
+Take a look at the imported data. Note the structure of the object and the export statement at the bottom of the file!
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+(10) Import the exported object from this file into src/App.js and name the object harvardArt. console.log the harvardArt object. Go to http://localhost:3000 and open the browser's Dev Tools console. There you should see the printed harvardArt object. The records key in that object is an array of information on Harvard's art galleries. The objects key in each art gallery is an array of information on the gallery's art pieces. You'll be using this data throughout this project, so get familiar with the structure of this data!
 
-### Advanced Configuration
+You can remove the console.log.
+Phase 1: GalleryNavigation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Here's a breakdown of the steps you'll be taking in this phase (more detailed instruction below):
 
-### Deployment
+    Create src/components folder.
+    Create src/components/GalleryNavigation folder and add index.js file to this folder.
+    Create <GalleryNavigation> component.
+    Export <GalleryNavigation> and include it inside of <App>.
+    Pass harvardArt.records to <GalleryNavigation> as prop galleries.
+    Receive galleries prop (using destructuring) to <GalleryNavigation> component.
+    Investigate (with debugger and/or console.log) the value of galleries prop.
+    Add <NavLink> to <GalleryNavigation> component.
+    Add <nav> element to <GalleryNavigation> to contain other elements.
+    Create component containing <NavLink> for each gallery object.
+    Create src/components/GalleryNavigation/GalleryNavigation.css.
+    Make CSS styles for .active elements.
+    Import GalleryNavigation.css in <GalleryNavigation> component file.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+The first React component you'll be creating and rendering in the App component is the GalleryNavigation component. This component should be rendered at every route in the application. It will render links to detail pages for every art gallery.
 
-### `npm run build` fails to minify
+(1) Make a components folder in src. This folder will hold all your React components besides App and Root.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+(2) Make a folder called GalleryNavigation in the components folder with an index.js file.
+
+(3) In this file, define a React functional component named GalleryNavigation. Render an h1 element with the text "Galleries".
+
+(4) Export the component from the file (using export default). Import the component into App.js and render it instead of <h1>Hello from App</h1>.
+
+Refresh http://localhost:3000. If you see "Galleries" displayed on the page, then you successfully rendered a new component in App!
+
+The GalleryNavigation component needs to have access to the names and ids of the galleries. The galleries data is in the App.js file, and the best way to pass in that data into the GalleryNavigation component is through its props.
+
+(5) From App.js, pass in a galleries prop into the GalleryNavigation component with the value of harvardArt.records.
+
+(6) Destructure galleries from the props of GalleryNavigation, i.e., the first argument of GalleryNavigation.
+
+(7) Put a debugger or console.log(galleries) at the top of the GalleryNavigation component to test if you passed down the galleries prop correctly. Refresh http://localhost:3000. When you open up your browser's dev tools console, galleries in GalleryNavigation should be an array of art galleries.
+
+(8) Add a NavLink to the GalleryNavigation component that directs users to the home page, / route. The <NavLink> can be imported from the react-router-dom library. Check out its documentation!
+
+(9) Since there are now two components in your <GalleryNavigation> component, you should wrap the <h1> and <NavLink> components in a <nav> (lowercase n!). A <div> would also work, but we recommend <nav> for semantic reasons.
+
+(10) Next, from each element in the array of art galleries, create a NavLink component that will direct the users to a /galleries/:galleryId route where :galleryId is replaced with the art gallery's id. The text inside of the NavLink should be the gallery's name.
+
+Tips for Step 10:
+
+    Remember to use your instructional resources! Raise your hand on Progress Tracker!
+    You want to make use of the galleries array you have as a prop in <GalleryNavigation>.
+    Putting curly braces {} in your JSX templates lets you execute any JavaScript you want.
+    The to property for each <NavLink> should be /galleries/[insert the gallery.id here].
+    BIG HINT: You can use .map off of your galleries array to create a React component out of each member of the galleries array.
+
+This will be one of your first brushes with the React key prop. You will need to provide a key prop whenever you create components using .map. Usually you will provide the .id of your data object (or some other unique attribute).
+
+Make sure that there is a link to the home page and links to each of the galleries in the navigation bar.
+NavLink's active class
+
+NavLinks make it easy to show when a link's path matches the current route. You are going to take advantage of this capability to boldface the NavLink's text for the current route.
+
+(11) Create a GalleryNavigation.css file in the GalleryNavigation folder.
+
+(12) Add styling to boldface elements with the class "active", i.e., .active. .active is the default active class for react-router-dom's <NavLink> elements.
+
+(13) Import the GalleryNavigation.css file at the top of the GalleryNavigation component file. (See src/index.js to see how to import CSS files into a create-react-app JavaScript file.)
+
+In the browser, you should see the active route in boldface in the navigation bar. Make sure that the NavLink to the home page is bolded only at the / route.
