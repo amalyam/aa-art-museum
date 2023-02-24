@@ -1,0 +1,6 @@
+.navLink {
+    padding-left: .5em;
+}
+.active {
+    font-weight: bold;
+}
