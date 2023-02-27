@@ -11,11 +11,11 @@ function App() {
       <GalleryNavigation galleries={harvardArt} />
 
       <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
         <Route exact path={`/galleries/:galleryId`}>
           <GalleryView galleries={harvardArt} />
-        </Route>
-        <Route exact to="/">
-          <Home />
         </Route>
         <Route>
           <PageNotFound />
