@@ -5,7 +5,7 @@ Here's a breakdown of the steps you'll be taking in this phase (more detailed in
     Create <ArtImageTile> component.
     Iterate over gallery.objects to create <ArtImageTile art={art}> per art.
     Create the contents (<Link>s and <img>s) in <ArtImageTile>.
-    Restrict the visibility of all arts in <GalleryView> using a <Route> with URL /galleries/:galleryId.
+    Restrict the visibility of all art in <GalleryView> using a <Route> with URL /galleries/:galleryId.
 
 Let's populate the GalleryView with images of the art in the displayed gallery.
 

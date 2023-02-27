@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import GalleryInterface from "../../data/GalleryInterface";
-import styles from "./index.module.css";
+import GalleryInterface from "./../data/GalleryInterface";
+import styles from "./GalleryNavigation.module.css";
 
 function GalleryNavigation({ galleries }: { galleries: GalleryInterface }) {
   return (

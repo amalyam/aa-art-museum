@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import GalleryInterface from "../../data/GalleryInterface";
+import GalleryInterface from "../data/GalleryInterface";
 
 function GalleryView({ galleries }: { galleries: GalleryInterface }) {
   const { galleryId } = useParams<{ galleryId: string }>();
