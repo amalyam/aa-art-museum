@@ -1,7 +1,8 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Route, useParams } from "react-router-dom";
 import GalleryInterface from "../data/GalleryInterface";
 import ArtImageTile from "./ArtImageTile";
+import PageNotFound from "./PageNotFound";
 
 function GalleryView({ galleries }: { galleries: GalleryInterface }) {
   const { galleryId } = useParams<{ galleryId: string }>();
@@ -9,14 +10,22 @@ function GalleryView({ galleries }: { galleries: GalleryInterface }) {
     (gallery) => gallery.id === parseInt(galleryId, 10)
   );
 
-  let art = galleryMatch?.objects.flatMap((object) => object.images) ?? [];
+  if (!galleryMatch) return <PageNotFound />;
+
+  let art = galleryMatch.objects.flatMap((object) => object.images);
 
   return (
     <div>
       <h1>Hello from GalleryView</h1>
-      <h2>{`${galleryMatch?.name}`}</h2>
+      <h2>{`${galleryMatch.name}`}</h2>
       <h3>
-        <ArtImageTile art={art} />
+        {art.map((image) => {
+          return (
+            <Route path={`/galleries/:${galleryMatch!.id}`}>
+              <ArtImageTile art={image} galleryId={galleryMatch!.id} />
+            </Route>
+          );
+        })}
       </h3>
     </div>
   );

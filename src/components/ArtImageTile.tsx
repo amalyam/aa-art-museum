@@ -1,16 +1,18 @@
 import React from "react";
 import { Image } from "../data/GalleryInterface";
+import { Link } from "react-router-dom";
 
 const ArtImageTile: React.FC<{
-  art: Image[];
-}> = ({ art }) => {
-  let firstImageUrl = art[0].baseimageurl;
-
+  art: Image;
+  galleryId: number;
+}> = ({ art, galleryId }) => {
   return (
-    <img
-      src={firstImageUrl}
-      alt={art[0].alttext ?? art[0].description ?? "image"}
-    ></img>
+    <Link to={`/galleries/:${galleryId}/art/:${art.imageid}`}>
+      <img
+        src={art.baseimageurl}
+        alt={art.alttext ?? art.description ?? "image"}
+      ></img>
+    </Link>
   );
 };
 
