@@ -1,7 +1,7 @@
 import React from "react";
 
-function PageNotFound() {
-  return <h2>Page Not Found</h2>;
+function PageNotFound({ title = "Page" }: { title?: string }) {
+  return <h2>{title} Not Found</h2>;
 }
 
 export default PageNotFound;

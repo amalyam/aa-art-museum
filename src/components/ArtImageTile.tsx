@@ -1,17 +1,16 @@
 import React from "react";
-import { Image } from "../data/GalleryInterface";
+import { GalleryObject, Image } from "../data/GalleryInterface";
 import { Link } from "react-router-dom";
+import ArtImageDisplay from "./ArtImageDisplay";
 
 const ArtImageTile: React.FC<{
-  art: Image;
+  art: GalleryObject;
+  image: Image;
   galleryId: number;
-}> = ({ art, galleryId }) => {
+}> = ({ art, image, galleryId }) => {
   return (
-    <Link to={`/galleries/:${galleryId}/art/:${art.imageid}`}>
-      <img
-        src={art.baseimageurl}
-        alt={art.alttext ?? art.description ?? "image"}
-      ></img>
+    <Link key={`${image.imageid}`} to={`/galleries/${galleryId}/art/${art.id}`}>
+      <ArtImageDisplay image={image} />
     </Link>
   );
 };

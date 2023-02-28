@@ -14,7 +14,7 @@ function App() {
         <Route exact path="/">
           <Home />
         </Route>
-        <Route exact path={`/galleries/:galleryId`}>
+        <Route path={`/galleries/:galleryId`}>
           <GalleryView galleries={harvardArt} />
         </Route>
         <Route>
